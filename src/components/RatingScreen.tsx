@@ -17,16 +17,7 @@ const EMOJI_OPTIONS = [
   { rating: 5, emoji: "🤩", label: "Excellent", color: "#10B981", bgClass: "hover:bg-emerald-950/20 hover:border-emerald-500/40" }
 ];
 
-const PRESET_FEEDBACKS = [
-  "⚡ Rapid Repair Shop",
-  "😊 Very Friendly Staff",
-  "🏆 Honest & Fair Pricing",
-  "✨ Flawless Screen Replacement",
-  "🔋 Battery Diagnostic Fixed",
-  "🔥 Best Customer Service",
-  "👌 Highly Recommended",
-  "📱 Elegant Phone Accessories"
-];
+
 
 export default function RatingScreen({ onSubmit, isSubmitting, onOpenAdmin }: RatingScreenProps) {
   const [selectedRating, setSelectedRating] = useState<number | null>(null);
@@ -40,14 +31,7 @@ export default function RatingScreen({ onSubmit, isSubmitting, onOpenAdmin }: Ra
     setErrorMessage("");
   };
 
-  const handleAddPreset = (preset: string) => {
-    setWrittenFeedback((prev) => {
-      const trimmed = prev.trim();
-      if (!trimmed) return preset;
-      if (trimmed.includes(preset)) return prev; // Avoid duplicates
-      return `${trimmed}, ${preset}`;
-    });
-  };
+
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -164,21 +148,6 @@ export default function RatingScreen({ onSubmit, isSubmitting, onOpenAdmin }: Ra
               <span className="text-xs text-gray-500 ml-auto">(Optional)</span>
             </div>
 
-            {/* Quiet feedback helper buttons */}
-            <div className="flex flex-wrap gap-2 mb-4">
-              {PRESET_FEEDBACKS.map((preset) => (
-                <button
-                  key={preset}
-                  type="button"
-                  disabled={selectedRating === null}
-                  onClick={() => handleAddPreset(preset)}
-                  className="px-3 py-2 rounded-xl text-xs font-sans border border-white/5 bg-black text-gray-300 hover:border-[#D4AF37] hover:bg-[#D4AF37]/10 disabled:opacity-40 disabled:hover:bg-transparent disabled:hover:border-white/5 transition-all cursor-pointer font-medium"
-                >
-                  {preset}
-                </button>
-              ))}
-            </div>
-
             <textarea
               value={writtenFeedback}
               disabled={selectedRating === null}
@@ -188,8 +157,7 @@ export default function RatingScreen({ onSubmit, isSubmitting, onOpenAdmin }: Ra
               maxLength={300}
             />
             
-            <div className="flex justify-between items-center mt-3 text-[11px] text-gray-500">
-              <span>Select quick tags to auto-fill remarks</span>
+            <div className="flex justify-end items-center mt-3 text-[11px] text-gray-500">
               <span className={writtenFeedback.length >= 250 ? "text-[#D4AF37]" : ""}>
                 {writtenFeedback.length}/300 characters
               </span>
