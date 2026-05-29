@@ -1,0 +1,6 @@
+{
+  "name": "Yonas Mobile Customer Feedback",
+  "description": "A premium customer feedback and rating web application for Yonas Mobile featuring an emoji rating system, written feedback options, a responsive tablet-friendly design, and a secure admin dashboard with analytics and reporting.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
