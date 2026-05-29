@@ -1,8 +1,14 @@
-require("dotenv/config");
-const express = require("express");
-const path = require("path");
-const { createServer: createViteServer } = require("vite");
-const firebaseService = require("./src/services/firebase.js").default;
+import "dotenv/config";
+import express from "express";
+import path from "path";
+import { fileURLToPath } from "url";
+import { createServer as createViteServer } from "vite";
+import firebaseService from "./src/services/firebase.js";
+import type { FeedbackRecord } from "./src/types.js";
+
+// Support ES modules paths if needed
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
 const PORT = 3000;
