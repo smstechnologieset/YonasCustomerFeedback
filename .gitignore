@@ -5,3 +5,12 @@ coverage/
 .DS_Store
 *.log
 
+# Environment variables - NEVER commit these!
+.env
+.env.local
+.env.*.local
+.env.production
+
+# Firebase credentials
+firebase-key.json
+service-account-key.json
