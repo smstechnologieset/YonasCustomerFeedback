@@ -86,111 +86,119 @@ export default function RatingScreen({ onSubmit, isSubmitting, onOpenAdmin }: Ra
         </div>
 
         <form onSubmit={handleSubmit} className="w-full flex flex-col items-center" id="rating-form">
-          {/* EMOJI SELECT CONTAINER */}
-          <div className="w-full flex flex-row flex-nowrap justify-between gap-1.5 sm:gap-4 md:gap-5 mb-8" id="emoji-row">
-            {EMOJI_OPTIONS.map((opt) => {
-              const isSelected = selectedRating === opt.rating;
-              return (
-                <button
-                  key={opt.rating}
-                  type="button"
-                  onClick={() => handleSelectRating(opt.rating)}
-                  className={`relative flex flex-col items-center justify-center flex-1 py-4 sm:py-6 px-1 sm:px-4 rounded-2xl sm:rounded-3xl border transition-all duration-300 transform cursor-pointer max-w-[120px] ${
-                    isSelected
-                      ? "bg-[#111] border-[#D4AF37] shadow-[0_0_30px_rgba(212,175,55,0.4)] scale-110 sm:scale-115"
-                      : "bg-[#111] border-white/5 text-gray-400 hover:text-white hover:scale-102 hover:border-[#D4AF37]/30"
-                  }`}
-                  id={`emoji-btn-${opt.rating}`}
-                >
-                  {isSelected && (
-                    <div className="absolute top-2 right-2 bg-[#D4AF37] text-black w-4 h-4 sm:w-5 sm:h-5 rounded-full flex items-center justify-center p-0.5">
-                      <Check size={10} className="sm:w-3 sm:h-3" strokeWidth={3} />
-                    </div>
-                  )}
-                  {/* Large animated emoji */}
-                  <span
-                    className={`text-3xl sm:text-4xl md:text-5xl mb-3 block transition-transform duration-300 ${
-                      isSelected ? "scale-115 rotate-2" : "hover:scale-110"
-                    }`}
-                  >
-                    {opt.emoji}
-                  </span>
-                  <span
-                    className={`text-[9px] sm:text-[10px] uppercase tracking-tighter ${
-                      isSelected ? "text-[#D4AF37] font-bold" : "text-gray-400"
-                    }`}
-                  >
-                    {opt.label}
-                  </span>
-                </button>
-              );
-            })}
-          </div>
-
           {/* ERROR STATUS */}
           {errorMessage && (
-            <div className="text-red-400 font-medium text-sm text-center mb-4 bg-red-950/20 border border-red-500/20 py-2.5 px-4 rounded-xl max-w-sm w-full mx-auto">
+            <div className="text-red-400 font-medium text-sm text-center mb-4 bg-red-950/20 border border-red-500/20 py-2.5 px-4 rounded-xl max-w-2xl w-full mx-auto">
               {errorMessage}
             </div>
           )}
 
-          {/* COLUMN WRAP FOR EXTRA REACTION / COMMENT */}
-          <div
-            className={`w-full max-w-2xl bg-[#111] border border-[#D4AF37]/30 rounded-3xl p-6 md:p-8 transition-all duration-500 shadow-2xl ${
-              selectedRating !== null ? "opacity-100 translate-y-0 scale-100" : "opacity-80 scale-99 pointer-events-none"
-            }`}
-          >
-            <div className="flex items-center gap-2 text-white font-medium mb-4">
-              <MessageSquareCode size={18} className="text-[#D4AF37]" />
-              <h3 className="text-sm uppercase tracking-wider text-gray-300 font-serif">
-                {selectedRating ? `Tell us more about your '${selectedOption?.label}' rating?` : "Choose rating to write feedback"}
-              </h3>
-              <span className="text-xs text-gray-500 ml-auto">(Optional)</span>
-            </div>
-
-            <textarea
-              value={writtenFeedback}
-              disabled={selectedRating === null}
-              onChange={(e) => setWrittenFeedback(e.target.value)}
-              placeholder={selectedRating ? "Anything we can improve? (Optional)" : "Choose rating first to type feedback"}
-              className="w-full bg-black border border-gray-800 rounded-xl p-4 text-sm focus:border-[#D4AF37] outline-none h-24 placeholder-gray-600 font-sans text-white focus:ring-1 focus:ring-[#D4AF37]/20 transition-all resize-none"
-              maxLength={300}
-            />
+          {/* UNIFIED FEEDBACK CARD */}
+          <div className="w-full max-w-2xl bg-[#111] border border-[#D4AF37]/30 rounded-3xl p-6 md:p-10 shadow-2xl">
             
-            <div className="flex justify-end items-center mt-3 text-[11px] text-gray-500">
-              <span className={writtenFeedback.length >= 250 ? "text-[#D4AF37]" : ""}>
-                {writtenFeedback.length}/300 characters
-              </span>
+            {/* EMOJI SELECT CONTAINER */}
+            <div className="mb-8">
+              <h3 className="text-sm uppercase tracking-wider text-gray-300 font-serif mb-4 text-center">
+                How was your experience?
+              </h3>
+              <div className="w-full flex flex-row flex-nowrap justify-between gap-2 sm:gap-3 md:gap-4" id="emoji-row">
+                {EMOJI_OPTIONS.map((opt) => {
+                  const isSelected = selectedRating === opt.rating;
+                  return (
+                    <button
+                      key={opt.rating}
+                      type="button"
+                      onClick={() => handleSelectRating(opt.rating)}
+                      className={`relative flex flex-col items-center justify-center flex-1 py-3 sm:py-5 px-1 sm:px-3 rounded-2xl border transition-all duration-300 transform cursor-pointer ${
+                        isSelected
+                          ? "bg-black border-[#D4AF37] shadow-[0_0_20px_rgba(212,175,55,0.3)] scale-105"
+                          : "bg-black/50 border-white/5 text-gray-400 hover:text-white hover:scale-102 hover:border-[#D4AF37]/30"
+                      }`}
+                      id={`emoji-btn-${opt.rating}`}
+                    >
+                      {isSelected && (
+                        <div className="absolute top-1.5 right-1.5 bg-[#D4AF37] text-black w-4 h-4 sm:w-5 sm:h-5 rounded-full flex items-center justify-center p-0.5">
+                          <Check size={10} className="sm:w-3 sm:h-3" strokeWidth={3} />
+                        </div>
+                      )}
+                      {/* Large animated emoji */}
+                      <span
+                        className={`text-2xl sm:text-3xl md:text-4xl mb-2 block transition-transform duration-300 ${
+                          isSelected ? "scale-110 rotate-2" : "hover:scale-105"
+                        }`}
+                      >
+                        {opt.emoji}
+                      </span>
+                      <span
+                        className={`text-[8px] sm:text-[9px] uppercase tracking-tighter ${
+                          isSelected ? "text-[#D4AF37] font-bold" : "text-gray-400"
+                        }`}
+                      >
+                        {opt.label}
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
             </div>
-          </div>
 
-          {/* SUBMIT ACTION BAR */}
-          <div className="mt-8 z-10 w-full max-w-sm">
-            <button
-              type="submit"
-              disabled={selectedRating === null || isSubmitting}
-              className={`w-full py-4 px-6 rounded-xl font-sans font-bold uppercase tracking-widest text-sm flex items-center justify-center gap-2 transform transition-all duration-300 cursor-pointer ${
-                selectedRating !== null && !isSubmitting
-                  ? "bg-[#D4AF37] text-black hover:bg-[#C5A028] shadow-[0_0_30px_rgba(212,175,55,0.35)] hover:-translate-y-0.5 active:translate-y-0"
-                  : "bg-gray-950 text-gray-600 border border-white/5 opacity-55 cursor-not-allowed"
-              }`}
-              id="submit-feedback-btn"
-            >
-              {isSubmitting ? (
-                <>
-                  <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-black" fill="none" viewBox="0 0 24 24">
-                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
-                  </svg>
-                  Saving Feedback...
-                </>
-              ) : (
-                <>
-                  <Send size={15} />
-                  Submit Rating
-                </>
-              )}
-            </button>
+            {/* DIVIDER */}
+            <div className="border-t border-white/5 my-6"></div>
+
+            {/* FEEDBACK TEXT AREA */}
+            <div className={`transition-opacity duration-300 ${selectedRating !== null ? "opacity-100" : "opacity-50"}`}>
+              <div className="flex items-center gap-2 text-white font-medium mb-4">
+                <MessageSquareCode size={18} className="text-[#D4AF37]" />
+                <h3 className="text-sm uppercase tracking-wider text-gray-300 font-serif">
+                  {selectedRating ? `Tell us more about your '${selectedOption?.label}' rating?` : "Additional Comments"}
+                </h3>
+                <span className="text-xs text-gray-500 ml-auto">(Optional)</span>
+              </div>
+
+              <textarea
+                value={writtenFeedback}
+                disabled={selectedRating === null}
+                onChange={(e) => setWrittenFeedback(e.target.value)}
+                placeholder={selectedRating ? "Share your thoughts... (Optional)" : "Select a rating first"}
+                className="w-full bg-black border border-gray-800 rounded-xl p-4 text-sm focus:border-[#D4AF37] outline-none h-24 placeholder-gray-600 font-sans text-white focus:ring-1 focus:ring-[#D4AF37]/20 transition-all resize-none disabled:opacity-50"
+                maxLength={300}
+              />
+              
+              <div className="flex justify-end items-center mt-3 text-[11px] text-gray-500">
+                <span className={writtenFeedback.length >= 250 ? "text-[#D4AF37]" : ""}>
+                  {writtenFeedback.length}/300 characters
+                </span>
+              </div>
+            </div>
+
+            {/* SUBMIT BUTTON */}
+            <div className="mt-6">
+              <button
+                type="submit"
+                disabled={selectedRating === null || isSubmitting}
+                className={`w-full py-4 px-6 rounded-xl font-sans font-bold uppercase tracking-widest text-sm flex items-center justify-center gap-2 transform transition-all duration-300 cursor-pointer ${
+                  selectedRating !== null && !isSubmitting
+                    ? "bg-[#D4AF37] text-black hover:bg-[#C5A028] shadow-[0_0_30px_rgba(212,175,55,0.35)] hover:-translate-y-0.5 active:translate-y-0"
+                    : "bg-gray-950 text-gray-600 border border-white/5 opacity-55 cursor-not-allowed"
+                }`}
+                id="submit-feedback-btn"
+              >
+                {isSubmitting ? (
+                  <>
+                    <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-black" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+                    </svg>
+                    Saving Feedback...
+                  </>
+                ) : (
+                  <>
+                    <Send size={15} />
+                    Submit Rating
+                  </>
+                )}
+              </button>
+            </div>
           </div>
         </form>
       </main>
