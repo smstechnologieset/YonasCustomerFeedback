@@ -1,8 +1,7 @@
 /**
  * Firebase service for Vercel serverless functions
  */
-import admin from "firebase-admin";
-import { FeedbackRecord } from "../../src/types";
+const admin = require("firebase-admin");
 
 // Initialize Firebase Admin SDK
 function initializeFirebase() {
@@ -47,7 +46,7 @@ function initializeFirebase() {
 initializeFirebase();
 const db = admin.database();
 
-export async function readFeedback(): Promise<FeedbackRecord[]> {
+async function readFeedback() {
   try {
     const snapshot = await db.ref("feedback").get();
     
@@ -56,7 +55,7 @@ export async function readFeedback(): Promise<FeedbackRecord[]> {
     }
 
     const data = snapshot.val();
-    const records: FeedbackRecord[] = Object.values(data).map((record: any) => ({
+    const records = Object.values(data).map((record) => ({
       id: record.id,
       rating: record.rating,
       emoji: record.emoji,
@@ -73,7 +72,7 @@ export async function readFeedback(): Promise<FeedbackRecord[]> {
   }
 }
 
-export async function writeFeedback(newRecord: FeedbackRecord): Promise<boolean> {
+async function writeFeedback(newRecord) {
   try {
     await db.ref(`feedback/${newRecord.id}`).set(newRecord);
     return true;
@@ -83,7 +82,7 @@ export async function writeFeedback(newRecord: FeedbackRecord): Promise<boolean>
   }
 }
 
-export async function deleteFeedback(recordId: string): Promise<boolean> {
+async function deleteFeedback(recordId) {
   try {
     await db.ref(`feedback/${recordId}`).remove();
     return true;
@@ -93,9 +92,9 @@ export async function deleteFeedback(recordId: string): Promise<boolean> {
   }
 }
 
-export async function seedFeedback(records: FeedbackRecord[]): Promise<boolean> {
+async function seedFeedback(records) {
   try {
-    const updates: { [key: string]: FeedbackRecord } = {};
+    const updates = {};
     records.forEach((record) => {
       updates[`feedback/${record.id}`] = record;
     });
@@ -108,7 +107,7 @@ export async function seedFeedback(records: FeedbackRecord[]): Promise<boolean> 
   }
 }
 
-export default {
+module.exports = {
   readFeedback,
   writeFeedback,
   deleteFeedback,

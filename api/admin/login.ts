@@ -1,9 +1,7 @@
-import type { VercelRequest, VercelResponse } from '@vercel/node';
-
 const ADMIN_TOKEN = "yonas-gold-premium-token-2026";
 const getAdminPassword = () => process.env.ADMIN_PASSWORD || "yonas123";
 
-export default async function handler(req: VercelRequest, res: VercelResponse) {
+async function handler(req: any, res: any) {
   // Enable CORS
   res.setHeader('Access-Control-Allow-Credentials', 'true');
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -31,3 +29,5 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
   return res.status(405).json({ error: "Method not allowed" });
 }
+
+module.exports = handler;

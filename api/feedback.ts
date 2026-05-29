@@ -1,6 +1,4 @@
-import type { VercelRequest, VercelResponse } from '@vercel/node';
-import firebaseService from './_lib/firebase';
-import type { FeedbackRecord } from '../src/types';
+const firebaseService = require('./_lib/firebase');
 
 const ADMIN_TOKEN = "yonas-gold-premium-token-2026";
 
@@ -10,7 +8,7 @@ function authenticateAdmin(req: VercelRequest): boolean {
   return authHeader === `Bearer ${ADMIN_TOKEN}` || token === ADMIN_TOKEN;
 }
 
-export default async function handler(req: VercelRequest, res: VercelResponse) {
+async function handler(req: any, res: any) {
   // Enable CORS
   res.setHeader('Access-Control-Allow-Credentials', 'true');
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -72,3 +70,5 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
   return res.status(405).json({ error: "Method not allowed" });
 }
+
+module.exports = handler;
