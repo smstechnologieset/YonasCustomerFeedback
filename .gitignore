@@ -14,3 +14,6 @@ coverage/
 # Firebase credentials
 firebase-key.json
 service-account-key.json
+
+# Vercel
+.vercel
