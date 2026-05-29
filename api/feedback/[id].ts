@@ -1,5 +1,5 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-import firebaseService from '../../src/services/firebase.js';
+import firebaseService from '../_lib/firebase';
 
 const ADMIN_TOKEN = "yonas-gold-premium-token-2026";
 
