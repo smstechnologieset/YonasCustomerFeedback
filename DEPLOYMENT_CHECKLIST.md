@@ -61,4 +61,24 @@ npm run dev
 
 ## 📝 API Endpoints
 
-A
+All endpoints work the same as before:
+- `POST /api/feedback` - Submit feedback
+- `GET /api/feedback` - Get all feedback (admin)
+- `DELETE /api/feedback/:id` - Delete feedback (admin)
+- `POST /api/admin/login` - Admin login
+- `POST /api/feedback/seed` - Seed data (admin)
+
+## ❓ Troubleshooting
+
+**"Host connection error" still appears:**
+- Check Vercel function logs in the dashboard
+- Verify environment variables are set correctly
+- Ensure Firebase credentials are valid
+
+**Firebase errors:**
+- Make sure `FIREBASE_SERVICE_ACCOUNT_KEY` is valid JSON
+- Verify `FIREBASE_DATABASE_URL` matches your project
+
+**Build fails:**
+- Run `npm run build` locally to test
+- Check for TypeScript errors with `npm run lint`
