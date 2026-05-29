@@ -4,14 +4,11 @@
  * Firebase Realtime Database Service
  */
 
-import admin from "firebase-admin";
-import dotenv from "dotenv";
-import path from "path";
-import { fileURLToPath } from "url";
-import { FeedbackRecord } from "../types";
+const admin = require("firebase-admin");
+const dotenv = require("dotenv");
+const path = require("path");
 
 // Load environment variables from .env.local or .env
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
 dotenv.config({ path: path.resolve(__dirname, "../../.env.local") });
 dotenv.config({ path: path.resolve(__dirname, "../../.env") });
 
