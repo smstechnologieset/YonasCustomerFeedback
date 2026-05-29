@@ -1,10 +1,10 @@
 # Yonas Mobile Customer Feedback System
 
-A modern customer feedback collection kiosk for Yonas Mobile (phone repair shop) built with React, Express, TypeScript, and Firebase.
+A modern customer feedback collection feedback for Yonas Mobile (phone repair shop) built with React, Express, TypeScript, and Firebase.
 
 ## Features
 
-- **Customer Kiosk**: 5-star emoji-based rating system with optional text feedback
+- **Customer feedback**: 5-star emoji-based rating system with optional text feedback
 - **Admin Dashboard**: Secure analytics dashboard with charts, search, and filtering
 - **Real-time Analytics**: Rating distribution, timeline tracking, hourly volume stats
 - **Data Export**: CSV export and print capabilities
@@ -137,7 +137,7 @@ npm start
 Default credentials:
 - **Password**: `yonas123` (change in `.env.local` for production)
 
-Access the admin portal by clicking the shield icon on the kiosk screen.
+Access the admin portal by clicking the shield icon on the Feedback screen.
 
 ## Data Storage
 
@@ -162,7 +162,7 @@ feedback/
 ├── src/
 │   ├── components/
 │   │   ├── AdminPortal.tsx      # Secure admin dashboard
-│   │   ├── RatingScreen.tsx     # Customer kiosk interface
+│   │   ├── RatingScreen.tsx     # Customer Feedback interface
 │   │   ├── ThumbsUpPopup.tsx    # Confirmation popup
 │   │   └── YonasLogo.tsx        # Brand component
 │   ├── services/

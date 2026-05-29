@@ -118,7 +118,7 @@ export default function ThumbsUpPopup({ isOpen, onClose, autoDismissSeconds = 6 
 
           {/* Countdown subtext */}
           <p className="mt-4 text-xs font-mono text-gray-500">
-            Automatically returning to kiosk in <span className="text-[#D4AF37] font-semibold">{timeLeft}s</span>
+            Automatically returning to Feedback in <span className="text-[#D4AF37] font-semibold">{timeLeft}s</span>
           </p>
         </motion.div>
       </div>

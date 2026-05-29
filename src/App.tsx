@@ -134,7 +134,7 @@ export default function App() {
   return (
     <div className="relative min-h-screen bg-[#030303]" id="yonas-app-root">
       
-      {/* 1. Main Customer facing kiosk terminal */}
+      {/* 1. Main Customer facing Feedback terminal */}
       <RatingScreen
         onSubmit={handleSubmitFeedback}
         isSubmitting={isSubmitting}

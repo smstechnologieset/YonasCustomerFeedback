@@ -76,7 +76,7 @@ Follow these steps for production-ready setup:
 
 5. **Test the Application**
    - Open http://localhost:3000
-   - Submit feedback from customer kiosk
+   - Submit feedback from customer Feedback
    - Access admin portal (shield icon) with password "yonas123"
    - Check Firebase Console to see data in Realtime Database
 

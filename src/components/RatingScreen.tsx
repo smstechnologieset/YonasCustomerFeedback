@@ -54,13 +54,13 @@ export default function RatingScreen({ onSubmit, isSubmitting, onOpenAdmin }: Ra
   };
 
   return (
-    <div className="min-h-screen bg-[#0A0A0A] text-gray-100 flex flex-col justify-between py-6 px-4 sm:px-6 md:px-8 relative overflow-hidden" id="yonas-kiosk-page">
+    <div className="min-h-screen bg-[#0A0A0A] text-gray-100 flex flex-col justify-between py-6 px-4 sm:px-6 md:px-8 relative overflow-hidden" id="yonas-Feedback-page">
       {/* Background glow filters */}
       <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-[#D4AF37]/5 rounded-full filter blur-[120px] pointer-events-none" />
       <div className="absolute bottom-10 left-10 w-64 h-64 bg-[#D4AF37]/2 rounded-full filter blur-[100px] pointer-events-none" />
 
       {/* HEADER BAR */}
-      <header className="max-w-4xl w-full mx-auto flex justify-between items-center z-10 py-3 border-b border-[#D4AF37]/10" id="kiosk-header">
+      <header className="max-w-4xl w-full mx-auto flex justify-between items-center z-10 py-3 border-b border-[#D4AF37]/10" id="Feedback-header">
         <YonasLogo size="md" />
         <div className="flex items-center gap-2">
           <button
@@ -75,7 +75,7 @@ export default function RatingScreen({ onSubmit, isSubmitting, onOpenAdmin }: Ra
       </header>
 
       {/* CORE FORM SECTION */}
-      <main className="max-w-4xl w-full mx-auto my-auto flex flex-col items-center justify-center py-6 sm:py-10 z-10 select-none" id="kiosk-main">
+      <main className="max-w-4xl w-full mx-auto my-auto flex flex-col items-center justify-center py-6 sm:py-10 z-10 select-none" id="Feedback-main">
         <div className="w-full text-center mb-10">
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif text-[#D4AF37] mb-2 tracking-wide font-bold" id="main-greeting">
             Rate Your Experience
@@ -204,7 +204,7 @@ export default function RatingScreen({ onSubmit, isSubmitting, onOpenAdmin }: Ra
       </main>
 
       {/* FOOTER BAR */}
-      <footer className="max-w-4xl w-full mx-auto text-center border-t border-white/5 pt-4 text-gray-600 text-xs flex flex-col sm:flex-row justify-between items-center gap-2 z-10" id="kiosk-footer">
+      <footer className="max-w-4xl w-full mx-auto text-center border-t border-white/5 pt-4 text-gray-600 text-xs flex flex-col sm:flex-row justify-between items-center gap-2 z-10" id="Feedback-footer">
         <p>© 2026 Yonas Mobile Customer Satisfaction Terminal.</p>
         <p className="flex items-center gap-1 font-mono text-[10px]">
           <span>Optimized for Tablet Device In-Store</span>

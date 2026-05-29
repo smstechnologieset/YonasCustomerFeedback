@@ -150,7 +150,7 @@ export default function AdminPortal({
 
   const timelineData = getTimelineData();
 
-  // Hourly volume stats for kiosk optimizing
+  // Hourly volume stats for Feedback optimizing
   const getHourlyData = () => {
     const hours = Array(24).fill(0);
     feedbackRecords.forEach(r => {
@@ -241,7 +241,7 @@ export default function AdminPortal({
             className="absolute top-6 left-6 text-gray-400 hover:text-white flex items-center gap-1.5 px-4 py-2 bg-white/5 hover:bg-white/10 border border-[#D4AF37]/20 rounded-full text-xs uppercase tracking-wider transition-all cursor-pointer"
           >
             <ChevronLeft size={16} />
-            Back to Kiosk
+            Back to Feedback
           </button>
 
           <div className="max-w-md w-full bg-[#111] border-2 border-[#D4AF37] rounded-3xl p-8 sm:p-10 shadow-[0_0_50px_rgba(212,175,55,0.15)] text-center relative overflow-hidden">
@@ -350,7 +350,7 @@ export default function AdminPortal({
                   className="px-4 py-2 border border-[#D4AF37]/35 text-[#D4AF37] hover:bg-[#D4AF37]/10 transition-colors text-xs uppercase tracking-wider font-bold rounded-full"
                   title="Return to Tablet Rating Terminal"
                 >
-                  Kiosk Terminal
+                  Feedback Terminal
                 </button>
                 <button
                   onClick={handleLogout}
@@ -372,7 +372,7 @@ export default function AdminPortal({
               </h2>
               <p className="text-xs text-gray-400 font-sans mt-1">
                 {activeTab === "stats" 
-                  ? "Real-time key performance indicators, distribution scores, and kiosk activity charts."
+                  ? "Real-time key performance indicators, distribution scores, and Feedback activity charts."
                   : "Complete log of individual customer ratings, optional written text remarks, and feedback timelines."}
               </p>
             </div>
