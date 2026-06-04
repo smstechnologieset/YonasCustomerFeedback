@@ -7,9 +7,12 @@ interface RatingScreenProps {
   onOpenAdmin: () => void;
 }
 
+import sadImg from "/sad.png";
+import happyImg from "/happy.png";
+
 const EMOJI_OPTIONS = [
-  { rating: 1, emoji: "sad.png", image: "/sad.png", label: "Unhappy", color: "#EF4444" },
-  { rating: 2, emoji: "happy.png", image: "/happy.png", label: "Happy", color: "#10B981" }
+  { rating: 1, emoji: "sad.png", image: sadImg, label: "Unhappy", color: "#EF4444" },
+  { rating: 2, emoji: "happy.png", image: happyImg, label: "Happy", color: "#10B981" }
 ];
 
 
