@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import YonasLogo from "./YonasLogo";
-import { Send } from "lucide-react";
 
 interface RatingScreenProps {
   onSubmit: (rating: number, emoji: string, category: string, text: string) => void;
@@ -17,35 +16,40 @@ const EMOJI_OPTIONS = [
 
 export default function RatingScreen({ onSubmit, isSubmitting, onOpenAdmin }: RatingScreenProps) {
   const [selectedRating, setSelectedRating] = useState<number | null>(null);
-  const [writtenFeedback, setWrittenFeedback] = useState("");
+  const [showConfirmation, setShowConfirmation] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
   const selectedOption = EMOJI_OPTIONS.find((o) => o.rating === selectedRating);
 
   const handleSelectRating = (rating: number) => {
     setSelectedRating(rating);
+    setShowConfirmation(true);
     setErrorMessage("");
   };
 
-
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleConfirmSubmit = () => {
     if (!selectedRating || !selectedOption) {
-      setErrorMessage("Please select an emoji rating to share your experience.");
+      setErrorMessage("Please select an emoji rating.");
       return;
     }
 
+    // Submit with empty text feedback
     onSubmit(
       selectedOption.rating,
       selectedOption.emoji,
       selectedOption.label,
-      writtenFeedback
+      ""
     );
 
-    // Reset states
+    // Reset
     setSelectedRating(null);
-    setWrittenFeedback("");
+    setShowConfirmation(false);
+    setErrorMessage("");
+  };
+
+  const handleCancel = () => {
+    setShowConfirmation(false);
+    setSelectedRating(null);
     setErrorMessage("");
   };
 
@@ -73,33 +77,22 @@ export default function RatingScreen({ onSubmit, isSubmitting, onOpenAdmin }: Ra
       {/* CORE FORM SECTION */}
       <main className="w-full mx-auto flex flex-col items-center justify-center py-4 z-10 select-none" id="Feedback-main">
         <div className="w-full text-center mb-6">
-          <h2 className="text-2xl sm:text-3xl font-serif text-[#D4AF37] font-bold" id="main-greeting">
-            Rate Your Experience
-          </h2>
-          <p className="text-gray-400 text-xs sm:text-sm mt-1">
-            Tap your feedback
-          </p>
+          {/* Header removed - using only the emoji question */}
         </div>
 
-        <form onSubmit={handleSubmit} className="w-full flex flex-col items-center px-4" id="rating-form">
-          {/* ERROR STATUS */}
-          {errorMessage && (
-            <div className="text-red-400 font-medium text-xs text-center mb-3 bg-red-950/20 border border-red-500/20 py-2 px-3 rounded-lg w-full max-w-7xl">
-              {errorMessage}
-            </div>
-          )}
-
+        {/* EMOJI SELECTION ONLY - NO FORM */}
+        <div className="w-full flex flex-col items-center px-4" id="rating-section">
           {/* UNIFIED FEEDBACK CARD - LANDSCAPE TABLET OPTIMIZED */}
           <div className="w-full max-w-7xl bg-[#111] border border-[#D4AF37]/30 rounded-2xl p-8 shadow-2xl">
             
             {/* EMOJI SELECT CONTAINER */}
             <div className="mb-6">
-              <h3 className="text-lg uppercase tracking-wider text-gray-300 font-serif mb-6 text-center">
+              <h3 className="text-lg uppercase tracking-wider text-[#D4AF37] font-serif mb-6 text-center font-bold">
                 How was your experience?
               </h3>
               <div className="w-full flex flex-row justify-center gap-50" id="emoji-row">
                 {EMOJI_OPTIONS.map((opt) => {
-                  const isSelected = selectedRating === opt.rating;
+                  const isSelected = selectedRating === opt.rating && showConfirmation;
                   return (
                     <button
                       key={opt.rating}
@@ -110,7 +103,7 @@ export default function RatingScreen({ onSubmit, isSubmitting, onOpenAdmin }: Ra
                         boxShadow: `0 0 30px ${opt.color}99, inset 0 0 20px ${opt.color}40`,
                         transform: "scale(1.1)"
                       } : {}}
-                      className={`relative flex flex-col items-center justify-center py-10 px-16 rounded-3xl border-2 transition-all duration-200 cursor-pointer ${
+                      className={`relative flex flex-col items-center justify-center w-96 h-96 rounded-3xl border-2 transition-all duration-200 cursor-pointer overflow-hidden ${
                         isSelected
                           ? "bg-black"
                           : "bg-black/50 border-white/10"
@@ -118,10 +111,10 @@ export default function RatingScreen({ onSubmit, isSubmitting, onOpenAdmin }: Ra
                       id={`emoji-btn-${opt.rating}`}
                     >
                       {/* Large emoji */}
-                      <span className="mb-3 block" style={{ fontSize: "200px" }}>
+                      <span className="block" style={{ fontSize: "280px", lineHeight: "1" }}>
                         {opt.emoji}
                       </span>
-                      <span className={`text-sm uppercase tracking-tight font-bold ${
+                      <span className={`text-sm uppercase tracking-tight font-bold absolute bottom-1 ${
                         isSelected ? "font-bold" : "text-gray-400"
                       }`}
                       style={isSelected ? { color: opt.color } : {}}>
@@ -132,55 +125,68 @@ export default function RatingScreen({ onSubmit, isSubmitting, onOpenAdmin }: Ra
                 })}
               </div>
             </div>
+          </div>
+        </div>
+      </main>
 
-            {/* DIVIDER */}
-            <div className="border-t border-white/5 my-3"></div>
+      {/* CONFIRMATION POPUP - SUBMIT FEEDBACK */}
+      {showConfirmation && selectedOption && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md" id="confirmation-popup-overlay">
+          <div className="max-w-md w-full bg-[#111] border-2 border-[#D4AF37] rounded-3xl p-8 shadow-[0_0_50px_rgba(212,175,55,0.25)] text-center">
+            {/* Selected emoji display */}
+            <div className="mb-6 flex justify-center">
+              <span style={{ fontSize: "180px" }}>
+                {selectedOption.emoji}
+              </span>
+            </div>
 
-            {/* COMPACT FEEDBACK & SUBMIT TOGETHER */}
-            <div className={`transition-opacity duration-200 ${selectedRating !== null ? "opacity-100" : "opacity-40"}`}>
-              <textarea
-                value={writtenFeedback}
-                disabled={selectedRating === null}
-                onChange={(e) => setWrittenFeedback(e.target.value)}
-                placeholder={selectedRating ? "Add comments... (Optional)" : "Select rating first"}
-                className="w-full bg-black border border-gray-800 rounded-lg p-4 text-sm focus:border-[#D4AF37] outline-none h-28 placeholder-gray-600 font-sans text-white focus:ring-1 focus:ring-[#D4AF37]/20 transition-all resize-none disabled:opacity-40 mb-3"
-                maxLength={200}
-              />
-              
-              <div className="flex justify-between items-center mb-3 text-xs text-gray-500">
-                <span className="font-mono">{writtenFeedback.length}/200</span>
-              </div>
+            {/* Title */}
+            <h2 className="text-2xl font-serif text-[#D4AF37] mb-2 font-bold">
+              Confirm Feedback
+            </h2>
 
-              {/* SUBMIT BUTTON */}
+            {/* Message */}
+            <p className="text-gray-400 text-sm mb-8">
+              You selected <span style={{ color: selectedOption.color }} className="font-bold">{selectedOption.label}</span>. Submit this feedback?
+            </p>
+
+            {/* Buttons */}
+            <div className="flex gap-4 justify-center">
+              {/* Cancel Button */}
               <button
-                type="submit"
-                disabled={selectedRating === null || isSubmitting}
-                className={`w-full py-4 px-8 rounded-lg font-sans font-bold uppercase tracking-widest text-sm flex items-center justify-center gap-2 transition-all duration-300 cursor-pointer ${
-                  selectedRating !== null && !isSubmitting
+                onClick={handleCancel}
+                disabled={isSubmitting}
+                className="px-8 py-3 rounded-lg font-sans font-bold uppercase tracking-widest text-sm bg-gray-900 text-gray-300 border border-gray-700 hover:bg-gray-800 transition-colors cursor-pointer disabled:opacity-50"
+              >
+                Cancel
+              </button>
+
+              {/* Submit Button */}
+              <button
+                onClick={handleConfirmSubmit}
+                disabled={isSubmitting}
+                className={`px-8 py-3 rounded-lg font-sans font-bold uppercase tracking-widest text-sm flex items-center justify-center gap-2 transition-all duration-300 cursor-pointer ${
+                  !isSubmitting
                     ? "bg-[#D4AF37] text-black hover:bg-[#C5A028] shadow-[0_0_25px_rgba(212,175,55,0.4)]"
-                    : "bg-gray-950 text-gray-600 border border-white/5 opacity-40 cursor-not-allowed"
+                    : "bg-[#D4AF37]/50 text-black/50 cursor-not-allowed"
                 }`}
-                id="submit-feedback-btn"
               >
                 {isSubmitting ? (
                   <>
-                    <svg className="animate-spin h-3.5 w-3.5 text-black" fill="none" viewBox="0 0 24 24">
+                    <svg className="animate-spin h-3.5 w-3.5" fill="none" viewBox="0 0 24 24">
                       <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                       <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
                     </svg>
                     Submitting...
                   </>
                 ) : (
-                  <>
-                    <Send size={13} />
-                    Submit
-                  </>
+                  "Submit Feedback"
                 )}
               </button>
             </div>
           </div>
-        </form>
-      </main>
+        </div>
+      )}
 
       {/* FOOTER BAR */}
       {/* <footer className="w-full text-center border-t border-white/5 pt-2 text-gray-600 text-[10px] z-10 mt-3" id="Feedback-footer">
