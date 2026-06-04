@@ -97,7 +97,7 @@ export default function RatingScreen({ onSubmit, isSubmitting, onOpenAdmin }: Ra
               <h3 className="text-lg uppercase tracking-wider text-gray-300 font-serif mb-6 text-center">
                 How was your experience?
               </h3>
-              <div className="w-full flex flex-row justify-center gap-12" id="emoji-row">
+              <div className="w-full flex flex-row justify-center gap-80" id="emoji-row">
                 {EMOJI_OPTIONS.map((opt) => {
                   const isSelected = selectedRating === opt.rating;
                   return (
