@@ -92,17 +92,17 @@ export default function RatingScreen({ onSubmit, isSubmitting, onOpenAdmin }: Ra
               </h3>
               <div className="w-full flex flex-row justify-center gap-50" id="emoji-row">
                 {EMOJI_OPTIONS.map((opt) => {
-                  const isSelected = selectedRating === opt.rating && showConfirmation;
+                  const isSelected = selectedRating === opt.rating;
                   return (
                     <button
                       key={opt.rating}
                       type="button"
                       onClick={() => handleSelectRating(opt.rating)}
-                      style={isSelected ? {
+                      style={{
                         borderColor: opt.color,
                         boxShadow: `0 0 30px ${opt.color}99, inset 0 0 20px ${opt.color}40`,
-                        transform: "scale(1.1)"
-                      } : {}}
+                        transform: isSelected ? "scale(1.1)" : "scale(1)"
+                      }}
                       className={`relative flex flex-col items-center justify-center w-96 h-96 rounded-3xl border-2 transition-all duration-200 cursor-pointer overflow-hidden ${
                         isSelected
                           ? "bg-black"
@@ -111,7 +111,14 @@ export default function RatingScreen({ onSubmit, isSubmitting, onOpenAdmin }: Ra
                       id={`emoji-btn-${opt.rating}`}
                     >
                       {/* Large emoji */}
-                      <span className="block" style={{ fontSize: "280px", lineHeight: "1" }}>
+                      <span className="block" style={{ 
+                        fontSize: "280px", 
+                        lineHeight: "1",
+                        WebkitFontSmoothing: "antialiased",
+                        textRendering: "optimizeLegibility",
+                        transform: "translateZ(0)",
+                        WebkitTransform: "translateZ(0)"
+                      }}>
                         {opt.emoji}
                       </span>
                       <span className={`text-sm uppercase tracking-tight font-bold absolute bottom-1 ${
@@ -135,7 +142,14 @@ export default function RatingScreen({ onSubmit, isSubmitting, onOpenAdmin }: Ra
           <div className="max-w-md w-full bg-[#111] border-2 border-[#D4AF37] rounded-3xl p-8 shadow-[0_0_50px_rgba(212,175,55,0.25)] text-center">
             {/* Selected emoji display */}
             <div className="mb-6 flex justify-center">
-              <span style={{ fontSize: "180px" }}>
+              <span style={{ 
+                fontSize: "180px",
+                WebkitFontSmoothing: "antialiased",
+                textRendering: "optimizeLegibility",
+                transform: "translateZ(0)",
+                WebkitTransform: "translateZ(0)",
+                lineHeight: "1"
+              }}>
                 {selectedOption.emoji}
               </span>
             </div>
