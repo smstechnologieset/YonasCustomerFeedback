@@ -88,9 +88,9 @@ All feedback is stored under the `feedback` path in Realtime Database:
 feedback/
 ├── fb_1715587200000_123/
 │   ├── id: "fb_1715587200000_123"
-│   ├── rating: 5
-│   ├── emoji: "🤩"
-│   ├── category: "Excellent"
+│   ├── rating: 2
+│   ├── emoji: "😊"
+│   ├── category: "Happy"
 │   ├── textFeedback: "Great service!"
 │   ├── createdAt: "2026-05-29T10:30:00.000Z"
 │   └── timestamp: 1715587200000

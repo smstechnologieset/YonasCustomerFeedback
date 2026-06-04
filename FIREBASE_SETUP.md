@@ -4,7 +4,7 @@ A modern customer feedback collection feedback for Yonas Mobile (phone repair sh
 
 ## Features
 
-- **Customer feedback**: 5-star emoji-based rating system with optional text feedback
+- **Customer feedback**: 2-emoji rating system (Happy 😊 / Unhappy 😢) with optional text feedback
 - **Admin Dashboard**: Secure analytics dashboard with charts, search, and filtering
 - **Real-time Analytics**: Rating distribution, timeline tracking, hourly volume stats
 - **Data Export**: CSV export and print capabilities
@@ -147,9 +147,9 @@ Data is stored in Firebase Realtime Database under the `feedback` path:
 feedback/
 ├── fb_1234567890_123/
 │   ├── id: "fb_1234567890_123"
-│   ├── rating: 5
-│   ├── emoji: "🤩"
-│   ├── category: "Excellent"
+│   ├── rating: 2
+│   ├── emoji: "😊"
+│   ├── category: "Happy"
 │   ├── textFeedback: "Great service!"
 │   ├── createdAt: "2026-05-29T10:30:00.000Z"
 │   └── timestamp: 1234567890000

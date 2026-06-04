@@ -5,9 +5,9 @@
 
 export interface FeedbackRecord {
   id: string;
-  rating: number; // 1 to 5 star equivalent
-  emoji: string;  // e.g. '😢', '😕', '😐', '😊', '🤩'
-  category: string; // label of rating e.g., "Excellent", "Good", "Neutral", "Fair", "Poor"
+  rating: number; // 1 = Unhappy, 2 = Happy
+  emoji: string;  // e.g. '😢' or '😊'
+  category: string; // label of rating e.g., "Unhappy" or "Happy"
   textFeedback: string;
   createdAt: string; // ISO date string
   timestamp: number;

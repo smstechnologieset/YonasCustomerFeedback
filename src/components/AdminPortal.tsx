@@ -8,7 +8,7 @@ import {
 import { 
   TrendingUp, Star, Calendar, MessageSquare, Download, Check, 
   Trash2, LogOut, ChevronLeft, Search, Filter, ShieldCheck, 
-  Database, RefreshCw, Key, ShieldAlert, FileSpreadsheet, Printer
+  Database, Key, ShieldAlert, FileSpreadsheet, Printer
 } from "lucide-react";
 
 interface AdminPortalProps {
@@ -16,17 +16,13 @@ interface AdminPortalProps {
   onClose: () => void;
   feedbackRecords: FeedbackRecord[];
   onDeleteRecord: (id: string) => Promise<void>;
-  onSeedData: () => Promise<void>;
-  isActionLoading: boolean;
 }
 
 export default function AdminPortal({ 
   isOpen, 
   onClose, 
   feedbackRecords, 
-  onDeleteRecord,
-  onSeedData,
-  isActionLoading
+  onDeleteRecord
 }: AdminPortalProps) {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [password, setPassword] = useState("");
@@ -94,20 +90,20 @@ export default function AdminPortal({
     ? Number((feedbackRecords.reduce((acc, curr) => acc + curr.rating, 0) / totalCount).toFixed(2))
     : 0;
 
-  const satisfiedCount = feedbackRecords.filter(r => r.rating >= 4).length;
+  const satisfiedCount = feedbackRecords.filter(r => r.rating === 2).length;
   const satisfactionRate = totalCount > 0 
     ? Math.round((satisfiedCount / totalCount) * 100)
     : 100;
 
   const commentsCount = feedbackRecords.filter(r => r.textFeedback.trim().length > 0).length;
 
-  // Rating Distribution breakdown (1-5 stars)
-  const distributionData = [1, 2, 3, 4, 5].map(stars => {
+  // Rating Distribution breakdown (Happy/Unhappy)
+  const distributionData = [1, 2].map(stars => {
     const count = feedbackRecords.filter(r => r.rating === stars).length;
     const percentage = totalCount > 0 ? Math.round((count / totalCount) * 100) : 0;
     
     // Label and emoji mapping
-    const labels = ["Poor 😢", "Fair 😕", "Neutral 😐", "Good 😊", "Excellent 🤩"];
+    const labels = ["Unhappy 😢", "Happy 😊"];
     return {
       stars,
       name: labels[stars - 1],
@@ -214,11 +210,9 @@ export default function AdminPortal({
     
     let matchesRating = true;
     if (ratingFilter === "positive") {
-      matchesRating = rec.rating >= 4;
-    } else if (ratingFilter === "neutral") {
-      matchesRating = rec.rating === 3;
+      matchesRating = rec.rating === 2;
     } else if (ratingFilter === "negative") {
-      matchesRating = rec.rating <= 2;
+      matchesRating = rec.rating === 1;
     } else if (ratingFilter !== "all") {
       matchesRating = rec.rating === Number(ratingFilter);
     }
@@ -377,28 +371,10 @@ export default function AdminPortal({
               </p>
             </div>
 
-            {/* DEMO DATA UTILITY AT HAND PRINT:HIDDEN */}
+            {/* ACTION BUTTONS */}
             <div className="flex items-center gap-2 print:hidden">
-              {totalCount === 0 && (
-                <button
-                  onClick={onSeedData}
-                  disabled={isActionLoading}
-                  className="px-4 py-2.5 bg-cyan-900/30 border border-cyan-500/30 hover:bg-cyan-900/50 text-cyan-300 text-xs font-bold rounded-xl flex items-center gap-2 transition-all cursor-pointer animate-pulse"
-                >
-                  <Database size={14} />
-                  Seed Demo Ratings
-                </button>
-              )}
               {totalCount > 0 && (
                 <div className="flex gap-2">
-                  <button
-                    onClick={onSeedData}
-                    disabled={isActionLoading}
-                    title="Add more seed ratings to enrich graphs"
-                    className="p-2.5 hover:bg-white/5 text-gray-500 hover:text-[#D4AF37] border border-[#D4AF37]/20 rounded-xl transition-colors cursor-pointer"
-                  >
-                    <RefreshCw size={13} className={isActionLoading ? "animate-spin" : ""} />
-                  </button>
                   <button
                     onClick={handlePrint}
                     className="px-4 py-2.5 bg-gray-900 border border-white/10 hover:bg-gray-850 text-gray-300 text-xs rounded-xl flex items-center gap-2 transition-all cursor-pointer"
@@ -430,10 +406,10 @@ export default function AdminPortal({
                   <div className="bg-[#111] border border-gray-800 p-6 rounded-2xl relative overflow-hidden">
                     <div className="text-gray-500 text-xs font-sans uppercase tracking-widest mb-1 font-bold">Average Score</div>
                     <div className="text-3xl font-serif text-[#D4AF37] flex items-baseline gap-1">
-                      {totalCount > 0 ? avgRating : "0.0"} <span className="text-lg opacity-50">/ 5.0</span>
+                      {totalCount > 0 ? avgRating : "0.0"} <span className="text-lg opacity-50">/ 2.0</span>
                     </div>
                     <div className="flex mt-2 space-x-1 select-none">
-                      {Array.from({ length: 5 }).map((_, i) => (
+                      {Array.from({ length: 2 }).map((_, i) => (
                         <span key={i} className={i < Math.round(avgRating) ? "text-[#D4AF37]" : "text-gray-700"}>★</span>
                       ))}
                     </div>
@@ -462,17 +438,10 @@ export default function AdminPortal({
                 {totalCount === 0 ? (
                   <div className="bg-[#0a0a0a] border border-white/5 rounded-2xl p-16 text-center select-none" id="empty-dashboard">
                     <Database size={48} className="text-[#D4AF37] mx-auto mb-4 opacity-50" />
-                    <h3 className="text-lg font-display text-white font-semibold">No feedback records registered</h3>
-                    <p className="text-gray-400 text-sm max-w-sm mx-auto mt-2 mb-6">
-                      There are no ratings logged on this tablet terminal yet. Triage mock listings to inspect active reporting features!
+                    <h3 className="text-lg font-display text-white font-semibold">No feedback records yet</h3>
+                    <p className="text-gray-400 text-sm max-w-sm mx-auto mt-2">
+                      Ratings will appear here as customers submit feedback from the main terminal.
                     </p>
-                    <button
-                      onClick={onSeedData}
-                      disabled={isActionLoading}
-                      className="px-6 py-3 bg-gradient-to-r from-yellow-300 via-[#D4AF37] to-amber-600 hover:brightness-110 text-black font-display font-medium text-xs uppercase tracking-wider rounded-xl cursor-pointer shadow-lg inline-flex items-center gap-2"
-                    >
-                      {isActionLoading ? "Injecting Data..." : "Seed Demo Datasets"}
-                    </button>
                   </div>
                 ) : (
                   /* --- CHARTS AREA --- */
@@ -489,8 +458,8 @@ export default function AdminPortal({
                         </p>
                       </div>
 
-                      <div className="h-64 mt-2">
-                        <ResponsiveContainer width="100%" height="100%">
+                      <div className="h-64 min-h-[256px] w-full mt-2">
+                        <ResponsiveContainer width="100%" height={256}>
                           <BarChart data={distributionData} margin={{ top: 10, right: 10, left: -25, bottom: 5 }}>
                             <XAxis 
                               dataKey="name" 
@@ -541,8 +510,8 @@ export default function AdminPortal({
                         </p>
                       </div>
 
-                      <div className="h-64 mt-2">
-                        <ResponsiveContainer width="100%" height="100%">
+                      <div className="h-64 min-h-[256px] w-full mt-2">
+                        <ResponsiveContainer width="100%" height={256}>
                           <LineChart data={timelineData} margin={{ top: 10, right: 20, left: -25, bottom: 5 }}>
                             <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.03)" />
                             <XAxis 
@@ -650,14 +619,8 @@ export default function AdminPortal({
                       className="bg-black border border-gray-800 focus:border-[#D4AF37]/50 focus:outline-none rounded-xl px-3 py-2.5 text-xs text-gray-300 transition-all cursor-pointer"
                     >
                       <option value="all">All Experiences</option>
-                      <option value="positive">Satisfied (4-5★)</option>
-                      <option value="neutral">Neutral (3★)</option>
-                      <option value="negative">Dissatisfied (1-2★)</option>
-                      <option value="5">Excellent (5★) 🤩</option>
-                      <option value="4">Good (4★) 😊</option>
-                      <option value="3">Neutral (3★) 😐</option>
-                      <option value="2">Fair (2★) 😕</option>
-                      <option value="1">Poor (1★) 😢</option>
+                      <option value="positive">Happy (2★) 😊</option>
+                      <option value="negative">Unhappy (1★) 😢</option>
                     </select>
 
                     {/* Reset button if filters active */}
@@ -699,7 +662,7 @@ export default function AdminPortal({
                                 {rec.category}
                               </span>
                               <div className="flex gap-0.5 text-amber-400">
-                                {Array.from({ length: 5 }).map((_, i) => (
+                                {Array.from({ length: 2 }).map((_, i) => (
                                   <Star 
                                     key={i} 
                                     size={11} 

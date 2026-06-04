@@ -154,8 +154,6 @@ export default function App() {
         onClose={() => setIsAdminOpen(false)}
         feedbackRecords={feedbackRecords}
         onDeleteRecord={handleDeleteFeedback}
-        onSeedData={handleSeedMockData}
-        isActionLoading={isActionLoading}
       />
 
     </div>

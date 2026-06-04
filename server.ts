@@ -117,15 +117,15 @@ app.delete("/api/feedback/:id", authenticateAdmin, async (req, res) => {
 // Seed mock data for preview/demonstration if empty
 app.post("/api/feedback/seed", authenticateAdmin, async (req, res) => {
   const mockRatings = [
-    { rating: 5, emoji: "🤩", category: "Excellent", textFeedback: "Yonas Mobile is the absolute best phone repair shop in town! Fixed my cracked iPhone screen in under 20 minutes, and the price was very fair. Super professional staff!" },
-    { rating: 5, emoji: "🤩", category: "Excellent", textFeedback: "Got a premium gold case and a tempered glass screen protector. Extremely elegant look!" },
-    { rating: 4, emoji: "😊", category: "Good", textFeedback: "Helpful service, they diagnosed my battery issue quickly. Will come back." },
-    { rating: 3, emoji: "😐", category: "Neutral", textFeedback: "A bit of a queue wait, but the overall diagnostics was accurate. Decent experience." },
-    { rating: 2, emoji: "😕", category: "Fair", textFeedback: "Called in for a repair estimate and took long to answer, though the repair itself was solid." },
-    { rating: 5, emoji: "🤩", category: "Excellent", textFeedback: "Yonas himself was incredibly polite and helpful. Excellent customer service, very honest!" },
-    { rating: 4, emoji: "😊", category: "Good", textFeedback: "Clean shop, nice staff. Keep it up!" },
-    { rating: 1, emoji: "😢", category: "Poor", textFeedback: "Repair took slightly longer than promised, but they did discount the price for the delay." },
-    { rating: 5, emoji: "🤩", category: "Excellent", textFeedback: "Perfect experience. Quick tablet triage, and they gave me a free charging cable." }
+    { rating: 2, emoji: "😊", category: "Happy", textFeedback: "Yonas Mobile is excellent! Fixed my cracked iPhone screen in under 20 minutes, and the price was very fair. Super professional staff!" },
+    { rating: 2, emoji: "😊", category: "Happy", textFeedback: "Got a premium gold case and a tempered glass screen protector. Extremely elegant look!" },
+    { rating: 2, emoji: "😊", category: "Happy", textFeedback: "Helpful service, they diagnosed my battery issue quickly. Will come back." },
+    { rating: 2, emoji: "😊", category: "Happy", textFeedback: "A bit of a queue wait, but the overall diagnostics was accurate. Great experience!" },
+    { rating: 1, emoji: "😢", category: "Unhappy", textFeedback: "Called in for a repair estimate and took long to answer, though the repair itself was solid." },
+    { rating: 2, emoji: "😊", category: "Happy", textFeedback: "Very polite and helpful staff. Excellent customer service, very honest!" },
+    { rating: 2, emoji: "😊", category: "Happy", textFeedback: "Clean shop, nice staff. Keep it up!" },
+    { rating: 1, emoji: "😢", category: "Unhappy", textFeedback: "Repair took slightly longer than promised, but they did offer a discount for the delay." },
+    { rating: 2, emoji: "😊", category: "Happy", textFeedback: "Perfect experience. Quick tablet triage, and they gave me a free charging cable!" }
   ];
 
   try {
