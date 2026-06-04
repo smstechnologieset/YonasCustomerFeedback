@@ -47,34 +47,33 @@ export default function App() {
     }
   }, [isAdminOpen]);
 
-  // Submit Feedback entry
+  // Submit Feedback entry (optimistic — show popup instantly)
   const handleSubmitFeedback = async (rating: number, emoji: string, category: string, text: string) => {
-    setIsSubmitting(true);
-    try {
-      const response = await fetch("/api/feedback", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          rating,
-          emoji,
-          category,
-          textFeedback: text
-        })
-      });
+    // Show thank-you popup immediately, don't wait for the network
+    setShowThanks(true);
+    setIsSubmitting(false);
 
-      if (response.ok) {
-        setShowThanks(true); // Open the gold Thumbs Up Popup!
-        // If admin happens to be logged in concurrently, sync
-        fetchFeedback();
-      } else {
-        const err = await response.json();
-        alert(`Failed to save feedback: ${err.error || 'Server error'}`);
-      }
-    } catch (err) {
-      alert("Host connection error. Please verify the network is active.");
-    } finally {
-      setIsSubmitting(false);
-    }
+    // Fire-and-forget the server save in the background
+    fetch("/api/feedback", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        rating,
+        emoji,
+        category,
+        textFeedback: text
+      })
+    })
+      .then((response) => {
+        if (response.ok) {
+          fetchFeedback(); // sync admin if logged in
+        } else {
+          console.error("Server rejected feedback submission");
+        }
+      })
+      .catch((err) => {
+        console.error("Host connection error:", err);
+      });
   };
 
   // Delete Feedback record (Secure Admin)

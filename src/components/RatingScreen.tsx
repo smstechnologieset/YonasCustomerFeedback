@@ -8,8 +8,8 @@ interface RatingScreenProps {
 }
 
 const EMOJI_OPTIONS = [
-  { rating: 1, emoji: "Sad.png", image: "/Sad.png", label: "Unhappy", color: "#EF4444" },
-  { rating: 2, emoji: "Happy.png", image: "/Happy.png", label: "Happy", color: "#10B981" }
+  { rating: 1, emoji: "sad.png", image: "/sad.png", label: "Unhappy", color: "#EF4444" },
+  { rating: 2, emoji: "happy.png", image: "/happy.png", label: "Happy", color: "#10B981" }
 ];
 
 
@@ -60,7 +60,7 @@ export default function RatingScreen({ onSubmit, isSubmitting, onOpenAdmin }: Ra
       <div className="absolute bottom-10 left-10 w-64 h-64 bg-[#D4AF37]/2 rounded-full filter blur-[100px] pointer-events-none" />
 
       {/* HEADER BAR */}
-      <header className="w-full flex justify-between items-center z-10 py-2 border-b border-[#D4AF37]/10 mb-3" id="Feedback-header">
+      <header className="w-full flex justify-between items-center z-10 py-2 border-b border-[#D4AF37]/10" id="Feedback-header">
         <YonasLogo size="sm" />
         <div className="flex items-center gap-2">
           <button
@@ -75,22 +75,18 @@ export default function RatingScreen({ onSubmit, isSubmitting, onOpenAdmin }: Ra
       </header>
 
       {/* CORE FORM SECTION */}
-      <main className="w-full mx-auto flex flex-col items-center justify-center py-4 z-10 select-none" id="Feedback-main">
-        <div className="w-full text-center mb-6">
-          {/* Header removed - using only the emoji question */}
-        </div>
-
+      <main className="w-full mx-auto flex flex-col items-center justify-center pt-1 pb-4 z-10 select-none" id="Feedback-main">
         {/* EMOJI SELECTION ONLY - NO FORM */}
         <div className="w-full flex flex-col items-center px-4" id="rating-section">
           {/* UNIFIED FEEDBACK CARD - LANDSCAPE TABLET OPTIMIZED */}
-          <div className="w-full max-w-7xl bg-[#111] border border-[#D4AF37]/30 rounded-2xl p-8 shadow-2xl">
+          <div className="w-full max-w-7xl bg-[#111] border border-[#D4AF37]/30 rounded-2xl p-4 sm:p-6 shadow-2xl">
             
             {/* EMOJI SELECT CONTAINER */}
             <div className="mb-6">
               <h3 className="text-lg uppercase tracking-wider text-[#D4AF37] font-serif mb-6 text-center font-bold">
                 How was your experience?
               </h3>
-              <div className="w-full flex flex-row justify-center gap-50" id="emoji-row">
+              <div className="w-full flex flex-row justify-center gap-16 lg:gap-32" id="emoji-row">
                 {EMOJI_OPTIONS.map((opt) => {
                   const isSelected = selectedRating === opt.rating;
                   return (
@@ -100,10 +96,10 @@ export default function RatingScreen({ onSubmit, isSubmitting, onOpenAdmin }: Ra
                       onClick={() => handleSelectRating(opt.rating)}
                       style={{
                         borderColor: opt.color,
-                        boxShadow: `0 0 30px ${opt.color}99, inset 0 0 20px ${opt.color}40`,
-                        transform: isSelected ? "scale(1.1)" : "scale(1)"
+                        boxShadow: `0 0 40px ${opt.color}99, inset 0 0 30px ${opt.color}40`,
+                        transform: isSelected ? "scale(1.05)" : "scale(1)"
                       }}
-                      className={`relative flex flex-col items-center justify-center w-96 h-96 rounded-3xl border-2 transition-all duration-200 cursor-pointer overflow-hidden ${
+                      className={`relative flex flex-col items-center justify-center w-[500px] h-[500px] rounded-[3rem] border-2 transition-all duration-200 cursor-pointer overflow-hidden ${
                         isSelected
                           ? "bg-black"
                           : "bg-black/50 border-white/10"
@@ -111,8 +107,8 @@ export default function RatingScreen({ onSubmit, isSubmitting, onOpenAdmin }: Ra
                       id={`emoji-btn-${opt.rating}`}
                     >
                       {/* Large emoji image */}
-                      <img src={opt.image} alt={opt.label} className="w-64 h-64 object-contain" />
-                      <span className={`text-sm uppercase tracking-tight font-bold absolute bottom-1 ${
+                      <img src={opt.image} alt={opt.label} className="w-[380px] h-[380px] object-contain mb-8" />
+                      <span className={`text-2xl uppercase tracking-tight font-bold absolute bottom-6 ${
                         isSelected ? "font-bold" : "text-gray-400"
                       }`}
                       style={isSelected ? { color: opt.color } : {}}>
