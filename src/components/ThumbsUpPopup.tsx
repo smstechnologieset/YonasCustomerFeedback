@@ -51,7 +51,7 @@ export default function ThumbsUpPopup({ isOpen, onClose, autoDismissSeconds = 6 
           <button
             onClick={onClose}
             className="absolute top-4 right-4 p-2 text-gray-500 hover:text-white hover:bg-white/5 rounded-full transition-colors cursor-pointer"
-            aria-label="Dismiss"
+            aria-label="Done"
           >
             <X size={20} />
           </button>
@@ -110,10 +110,10 @@ export default function ThumbsUpPopup({ isOpen, onClose, autoDismissSeconds = 6 
           {/* Large Gold Button for Tablet Navigation */}
           <button
             onClick={onClose}
-            className="px-8 py-2.5 border border-[#D4AF37] text-[#D4AF37] rounded-full text-xs uppercase tracking-widest hover:bg-[#D4AF37] hover:text-black transition-all font-bold cursor-pointer"
+            className="px-8 py-2.5 border border-[#D4AF37] bg-[#D4AF37] text-black rounded-full text-xs uppercase tracking-widest hover:bg-[#D4AF37] hover:text-white transition-all font-bold cursor-pointer"
             id="dismiss-thanks-btn"
           >
-            Dismiss
+            Done
           </button>
 
           {/* Countdown subtext */}

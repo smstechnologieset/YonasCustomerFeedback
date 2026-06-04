@@ -151,7 +151,7 @@ export default function RatingScreen({ onSubmit, isSubmitting, onOpenAdmin }: Ra
               <button
                 onClick={handleCancel}
                 disabled={isSubmitting}
-                className="px-8 py-3 rounded-lg font-sans font-bold uppercase tracking-widest text-sm bg-gray-900 text-gray-300 border border-gray-700 hover:bg-gray-800 transition-colors cursor-pointer disabled:opacity-50"
+                className="px-8 py-3 rounded-lg font-sans font-bold uppercase tracking-widest text-sm bg-gray-400 text-black border border-gray-700 hover:bg-gray-800 transition-colors cursor-pointer disabled:opacity-50"
               >
                 Cancel
               </button>

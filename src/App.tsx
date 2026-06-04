@@ -144,7 +144,7 @@ export default function App() {
       <ThumbsUpPopup
         isOpen={showThanks}
         onClose={() => setShowThanks(false)}
-        autoDismissSeconds={6}
+        autoDismissSeconds={3}
       />
 
       {/* 3. Secure Admin dashboard gate */}
