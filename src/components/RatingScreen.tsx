@@ -84,17 +84,17 @@ export default function RatingScreen({ onSubmit, isSubmitting, onOpenAdmin }: Ra
         <form onSubmit={handleSubmit} className="w-full flex flex-col items-center px-4" id="rating-form">
           {/* ERROR STATUS */}
           {errorMessage && (
-            <div className="text-red-400 font-medium text-xs text-center mb-3 bg-red-950/20 border border-red-500/20 py-2 px-3 rounded-lg w-full max-w-2xl">
+            <div className="text-red-400 font-medium text-xs text-center mb-3 bg-red-950/20 border border-red-500/20 py-2 px-3 rounded-lg w-full max-w-7xl">
               {errorMessage}
             </div>
           )}
 
-          {/* UNIFIED FEEDBACK CARD - COMPACT FOR TABLET */}
-          <div className="w-full max-w-2xl bg-[#111] border border-[#D4AF37]/30 rounded-2xl p-4 shadow-2xl">
+          {/* UNIFIED FEEDBACK CARD - LANDSCAPE TABLET OPTIMIZED */}
+          <div className="w-full max-w-7xl bg-[#111] border border-[#D4AF37]/30 rounded-2xl p-8 shadow-2xl">
             
             {/* EMOJI SELECT CONTAINER */}
-            <div className="mb-4">
-              <h3 className="text-xs uppercase tracking-wider text-gray-300 font-serif mb-3 text-center">
+            <div className="mb-6">
+              <h3 className="text-lg uppercase tracking-wider text-gray-300 font-serif mb-6 text-center">
                 How was your experience?
               </h3>
               <div className="w-full flex flex-row justify-center gap-12" id="emoji-row">
@@ -110,7 +110,7 @@ export default function RatingScreen({ onSubmit, isSubmitting, onOpenAdmin }: Ra
                         boxShadow: `0 0 30px ${opt.color}99, inset 0 0 20px ${opt.color}40`,
                         transform: "scale(1.1)"
                       } : {}}
-                      className={`relative flex flex-col items-center justify-center py-6 px-8 rounded-3xl border-2 transition-all duration-200 cursor-pointer ${
+                      className={`relative flex flex-col items-center justify-center py-10 px-16 rounded-3xl border-2 transition-all duration-200 cursor-pointer ${
                         isSelected
                           ? "bg-black"
                           : "bg-black/50 border-white/10"
@@ -118,10 +118,10 @@ export default function RatingScreen({ onSubmit, isSubmitting, onOpenAdmin }: Ra
                       id={`emoji-btn-${opt.rating}`}
                     >
                       {/* Large emoji */}
-                      <span className="text-7xl mb-2 block">
+                      <span className="text-9xl mb-3 block">
                         {opt.emoji}
                       </span>
-                      <span className={`text-xs uppercase tracking-tight font-bold ${
+                      <span className={`text-sm uppercase tracking-tight font-bold ${
                         isSelected ? "font-bold" : "text-gray-400"
                       }`}
                       style={isSelected ? { color: opt.color } : {}}>
@@ -143,11 +143,11 @@ export default function RatingScreen({ onSubmit, isSubmitting, onOpenAdmin }: Ra
                 disabled={selectedRating === null}
                 onChange={(e) => setWrittenFeedback(e.target.value)}
                 placeholder={selectedRating ? "Add comments... (Optional)" : "Select rating first"}
-                className="w-full bg-black border border-gray-800 rounded-lg p-2.5 text-xs focus:border-[#D4AF37] outline-none h-14 placeholder-gray-600 font-sans text-white focus:ring-1 focus:ring-[#D4AF37]/20 transition-all resize-none disabled:opacity-40 mb-3"
+                className="w-full bg-black border border-gray-800 rounded-lg p-4 text-sm focus:border-[#D4AF37] outline-none h-28 placeholder-gray-600 font-sans text-white focus:ring-1 focus:ring-[#D4AF37]/20 transition-all resize-none disabled:opacity-40 mb-3"
                 maxLength={200}
               />
               
-              <div className="flex justify-between items-center mb-3 text-[10px] text-gray-500">
+              <div className="flex justify-between items-center mb-3 text-xs text-gray-500">
                 <span className="font-mono">{writtenFeedback.length}/200</span>
               </div>
 
@@ -155,7 +155,7 @@ export default function RatingScreen({ onSubmit, isSubmitting, onOpenAdmin }: Ra
               <button
                 type="submit"
                 disabled={selectedRating === null || isSubmitting}
-                className={`w-full py-3 px-4 rounded-lg font-sans font-bold uppercase tracking-widest text-xs flex items-center justify-center gap-2 transition-all duration-300 cursor-pointer ${
+                className={`w-full py-4 px-8 rounded-lg font-sans font-bold uppercase tracking-widest text-sm flex items-center justify-center gap-2 transition-all duration-300 cursor-pointer ${
                   selectedRating !== null && !isSubmitting
                     ? "bg-[#D4AF37] text-black hover:bg-[#C5A028] shadow-[0_0_25px_rgba(212,175,55,0.4)]"
                     : "bg-gray-950 text-gray-600 border border-white/5 opacity-40 cursor-not-allowed"
