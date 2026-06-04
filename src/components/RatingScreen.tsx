@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import YonasLogo from "./YonasLogo";
+import happyImg from "../assets/happy.png";
+import sadImg from "../assets/sad.png";
 
 interface RatingScreenProps {
   onSubmit: (rating: number, emoji: string, category: string, text: string) => void;
@@ -8,8 +10,8 @@ interface RatingScreenProps {
 }
 
 const EMOJI_OPTIONS = [
-  { rating: 1, emoji: "sad.png", label: "Unhappy", color: "#EF4444" },
-  { rating: 2, emoji: "happy.png", label: "Happy", color: "#10B981" }
+  { rating: 1, emoji: "sad.png", image: sadImg, label: "Unhappy", color: "#EF4444" },
+  { rating: 2, emoji: "happy.png", image: happyImg, label: "Happy", color: "#10B981" }
 ];
 
 
@@ -111,7 +113,7 @@ export default function RatingScreen({ onSubmit, isSubmitting, onOpenAdmin }: Ra
                       id={`emoji-btn-${opt.rating}`}
                     >
                       {/* Large emoji image */}
-                      <img src={`/${opt.emoji}`} alt={opt.label} className="w-64 h-64 object-contain" />
+                      <img src={opt.image} alt={opt.label} className="w-64 h-64 object-contain" />
                       <span className={`text-sm uppercase tracking-tight font-bold absolute bottom-1 ${
                         isSelected ? "font-bold" : "text-gray-400"
                       }`}
@@ -133,7 +135,7 @@ export default function RatingScreen({ onSubmit, isSubmitting, onOpenAdmin }: Ra
           <div className="max-w-md w-full bg-[#111] border-2 border-[#D4AF37] rounded-3xl p-8 shadow-[0_0_50px_rgba(212,175,55,0.25)] text-center">
             {/* Selected emoji display */}
             <div className="mb-6 flex justify-center">
-              <img src={`/${selectedOption.emoji}`} alt={selectedOption.label} className="w-48 h-48 object-contain" />
+              <img src={selectedOption.image} alt={selectedOption.label} className="w-48 h-48 object-contain" />
             </div>
 
             {/* Title */}
