@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 import YonasLogo from "./YonasLogo";
-import happyImg from "../assets/happy.png";
-import sadImg from "../assets/sad.png";
 
 interface RatingScreenProps {
   onSubmit: (rating: number, emoji: string, category: string, text: string) => void;
@@ -10,8 +8,8 @@ interface RatingScreenProps {
 }
 
 const EMOJI_OPTIONS = [
-  { rating: 1, emoji: "sad.png", image: sadImg, label: "Unhappy", color: "#EF4444" },
-  { rating: 2, emoji: "happy.png", image: happyImg, label: "Happy", color: "#10B981" }
+  { rating: 1, emoji: "sad.png", image: "/sad.png", label: "Unhappy", color: "#EF4444" },
+  { rating: 2, emoji: "happy.png", image: "/happy.png", label: "Happy", color: "#10B981" }
 ];
 
 
