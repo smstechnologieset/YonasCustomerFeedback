@@ -97,7 +97,7 @@ export default function RatingScreen({ onSubmit, isSubmitting, onOpenAdmin }: Ra
               <h3 className="text-lg uppercase tracking-wider text-gray-300 font-serif mb-6 text-center">
                 How was your experience?
               </h3>
-              <div className="w-full flex flex-row justify-center gap-80" id="emoji-row">
+              <div className="w-full flex flex-row justify-center gap-50" id="emoji-row">
                 {EMOJI_OPTIONS.map((opt) => {
                   const isSelected = selectedRating === opt.rating;
                   return (
@@ -118,7 +118,7 @@ export default function RatingScreen({ onSubmit, isSubmitting, onOpenAdmin }: Ra
                       id={`emoji-btn-${opt.rating}`}
                     >
                       {/* Large emoji */}
-                      <span className="text-9xl mb-3 block">
+                      <span className="mb-3 block" style={{ fontSize: "200px" }}>
                         {opt.emoji}
                       </span>
                       <span className={`text-sm uppercase tracking-tight font-bold ${
